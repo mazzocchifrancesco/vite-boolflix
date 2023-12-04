@@ -1,5 +1,21 @@
 <script>
+import { store } from "../store.js"
 
+
+export default {
+    name: "appHeader",
+    data() {
+        return {
+            store,
+        }
+    },
+    methods: {
+        search() {
+            console.log("Cerca: ", this.store.searchString);
+            this.$emit("search");
+        }
+    }
+}
 </script>
 
 <template>
@@ -8,8 +24,9 @@
 
 
         <form class="d-flex align-items-center" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                v-model="this.store.searchString">
+            <button @click="search" class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </nav>
 </template>

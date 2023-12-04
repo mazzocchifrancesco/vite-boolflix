@@ -15,18 +15,6 @@ export default {
             store,
         }
     },
-    mounted() {
-        this.getMovie();
-    },
-    methods: {
-        getMovie() {
-            let indirizzo = this.store.apiUrl + this.store.apiKey + "&query=ritorno";
-            axios.get(indirizzo).then(risultato => {
-                this.store.movies = risultato.data.results;
-                console.log(risultato.data.results);
-            })
-        }
-    }
 }
 </script>
 
