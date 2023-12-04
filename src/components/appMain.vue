@@ -19,7 +19,20 @@ export default {
 </script>
 
 <template>
-    <appCard v-for="film in store.movies " :info="film" />
+    <div id="main">
+
+        <div class="container">
+            <h2>FILM</h2>
+            <div class="row">
+                <appCard v-for="film in store.movies " :info="film" />
+            </div>
+        </div>
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+#main {
+    background-color: lightslategray;
+    padding: 2rem 0;
+}
+</style>

@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     getMovie() {
-      let indirizzo = this.store.apiUrl + this.store.apiKey + "&query=" + this.store.searchString;
+      let indirizzo = this.store.apiUrl + this.store.apiKey + "&query=" + this.store.searchString + "&language=it-IT";
       axios.get(indirizzo).then(risultato => {
         this.store.movies = risultato.data.results;
         console.log(risultato.data.results);

@@ -16,9 +16,17 @@ export default {
 </script>
 
 <template>
-    <div class="d-flex">
-        <p> {{ info.title }}</p>
-
+    <div id="card" class=" d-flex flex-column flex-wrap bg-white">
+        <h4> {{ info.title }}</h4>
+        <p> {{ info.original_title }}</p>
+        <p>{{ info.original_language }}</p>
+        <p>{{ info.vote_average }}</p>
     </div>
 </template>
-<style scooped></style>
+<style scooped>
+#card {
+    width: 30%;
+    margin-right: calc(10% / 3);
+    margin-bottom: 1rem;
+}
+</style>
