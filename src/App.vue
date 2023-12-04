@@ -17,13 +17,20 @@ export default {
     }
   },
   mounted() {
-    this.getMovie();
   },
   methods: {
-    getMovie() {
-      let indirizzo = this.store.apiUrl + this.store.apiKey + "&query=" + this.store.searchString + "&language=it-IT";
+    getMovie(movieOrtv) {
+      let indirizzo = this.store.apiUrl + movieOrtv + "?api_key=" + this.store.apiKey + "&query=" + this.store.searchString + "&language=it-IT";
       axios.get(indirizzo).then(risultato => {
-        this.store.movies = risultato.data.results;
+
+        // rimuovere if se possibile mettere una variabile passata dalla funzione
+
+        if (movieOrtv == 'movie') {
+          this.store.movie = risultato.data.results;
+        }
+        else if (movieOrtv == 'tv') {
+          this.store.tv = risultato.data.results;
+        };
         console.log(risultato.data.results);
       })
     }
@@ -32,7 +39,7 @@ export default {
 </script>
 
 <template>
-  <appHeader @search="getMovie" />
+  <appHeader @search="getMovie('movie'), getMovie('tv')" />
   <appMain />
 </template>
 

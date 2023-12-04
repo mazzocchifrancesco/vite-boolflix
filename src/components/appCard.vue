@@ -4,7 +4,7 @@ import { store } from "../store.js"
 export default {
     name: "appCard",
     props: {
-        info: Object
+        info: Object,
     },
     data() {
         return {
@@ -12,11 +12,17 @@ export default {
         }
     },
     methods: {
-        getImageUrl(name) {
-            if (name == "en") {
-                name = 'gb';
-            };
-            return new URL(`../../node_modules/svg-country-flags/svg/${name}.svg`, import.meta.url).href
+        getImageUrl(img) {
+
+            // lang fix
+            if (img == 'en') { img = 'gb' };
+            if (img == 'ja') { img = 'jp' };
+            if (img == 'nb') { img = 'no' };
+            if (img == 'da') { img = 'dk' };
+            if (img == 'zh') { img = 'cn' };
+            if (img == 'te') { img = 'in' };
+
+            return new URL(`../../node_modules/svg-country-flags/svg/${img}.svg`, import.meta.url).href
         }
     }
 }
@@ -25,8 +31,8 @@ export default {
 
 <template>
     <div id="card" class=" d-flex flex-column flex-wrap bg-white">
-        <h4> {{ info.title }}</h4>
-        <p> {{ info.original_title }}</p>
+        <h4> {{ info.title }}{{ info.name }}</h4>
+        <p> {{ info.original_title }}{{ info.original_name }}</p>
         <p> {{ info.original_language }}</p>
 
         <img :src="getImageUrl(info.original_language)" alt=aaaaa>
