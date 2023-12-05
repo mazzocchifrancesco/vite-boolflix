@@ -24,6 +24,7 @@ export default {
         <h3>Boolflix</h3>
         <!-- searchbar -->
         <form class="d-flex align-items-center" role="search">
+            <!-- i due elementi che servono l'emit devono stare nello stesso contenitore, altrimenti dichiaro nell'export gli emit  -->
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                 v-model="this.store.searchString">
             <button @click="search" class="btn btn-outline-success" type="submit">Search</button>

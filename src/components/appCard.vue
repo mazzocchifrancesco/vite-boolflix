@@ -4,19 +4,24 @@ import { store } from "../store.js"
 export default {
     name: "appCard",
     props: {
-        info: Object,
+        info: Array,
         title: String
     },
     data() {
         return {
             store,
-            x: 5,
         }
     },
     methods: {
-        getImageUrl(img) {
+        getImageFlag(img) {
             return new URL(`../../node_modules/svg-country-flags/svg/${img}.svg`, import.meta.url).href
-        }
+        },
+        getImagePoster(img) {
+            return new URL(store.posterUrl + store.posterSize + img, import.meta.url).href
+        },
+
+    },
+    mounted() {
     }
 }
 
@@ -32,8 +37,18 @@ export default {
                 <p> {{ element.original_title }}{{ element.original_name }}</p>
                 <p> {{ element.original_language }}</p>
                 <!-- immagine bandierina -->
-                <img :src="getImageUrl(element.original_language)" alt="">
-                <p>{{ element.vote_average }}</p>
+                <img id="flag" :src="getImageFlag(element.original_language)" alt="">
+                <div id="stelle">
+                    <p>{{ element.vote_average }}</p>
+                    <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 0" />
+                    <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 1" />
+                    <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 2" />
+                    <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 3" />
+                    <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 4" />
+
+                </div>
+                <!-- immagine poster -->
+                <img v-if="element.poster_path != null" :src="getImagePoster(element.poster_path)" alt="">
             </div>
         </div>
     </div>
@@ -45,7 +60,7 @@ export default {
     margin-bottom: 1rem;
 }
 
-img {
+#flag {
     width: 2rem;
 }
 </style>

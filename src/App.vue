@@ -19,18 +19,36 @@ export default {
   mounted() {
   },
   methods: {
+    // recupera film o serie con axios
+    // posso passare array in store nella funzione?
     getMovie(movieOrtv) {
-      let indirizzo = this.store.apiUrl + movieOrtv + "?api_key=" + this.store.apiKey + "&query=" + this.store.searchString + "&language=it-IT";
-      axios.get(indirizzo).then(risultato => {
-        // rimuovere if se possibile mettere una variabile passata dalla funzione
+      const options = {
+        method: 'GET',
+        url: 'https://api.themoviedb.org/3/search/' + movieOrtv,
+        params: {
+          query: store.searchString,
+          include_adult: 'false',
+          language: store.lingua,
+          page: '1',
+          api_key: store.apiKey
+        },
+        headers: {
+          accept: 'application/json',
+        }
+      };
+      // trasformata in arrow function per permettere passaggio dei dati
+      axios.request(options).then((response) => {
+
         if (movieOrtv == 'movie') {
-          this.store.movie = risultato.data.results;
+          this.store.movie = response.data.results;
         }
         else if (movieOrtv == 'tv') {
-          this.store.tv = risultato.data.results;
+          this.store.tv = response.data.results;
         };
-        console.log(risultato.data.results);
-      })
+        console.log(response.data.results);
+
+        // potrei togliere le tonde visto che ha un elemento solo nelle tonde
+      }).catch((error) => { console.error(error); });
     }
   }
 }

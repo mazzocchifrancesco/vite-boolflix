@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios';
 import { store } from "../store.js"
 import appCard from "./appCard.vue"
 
@@ -24,7 +23,6 @@ export default {
         <appCard :info="store.movie" :title="'film'" />
         <!-- serie tv -->
         <appCard :info="store.tv" :title="'serie tv'" />
-
     </div>
 </template>
 
