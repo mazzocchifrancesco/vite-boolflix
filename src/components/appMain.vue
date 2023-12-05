@@ -18,7 +18,7 @@ export default {
 </script>
 
 <template>
-    <div id="main">
+    <div id="main" class="overflow-auto">
         <!-- film -->
         <appCard :info="store.movie" :title="'film'" />
         <!-- serie tv -->
@@ -28,7 +28,8 @@ export default {
 
 <style scoped>
 #main {
-    background-color: lightslategray;
+    background-color: rgb(54, 54, 54);
     padding: 2rem 0;
+    height: calc(100vh - 5rem);
 }
 </style>
