@@ -20,9 +20,9 @@ export default {
 
 <template>
     <nav class="bg-danger d-flex justify-content-between align-items-center px-5">
+        <!-- logo -->
         <h3>Boolflix</h3>
-
-
+        <!-- searchbar -->
         <form class="d-flex align-items-center" role="search">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                 v-model="this.store.searchString">

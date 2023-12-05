@@ -22,9 +22,7 @@ export default {
     getMovie(movieOrtv) {
       let indirizzo = this.store.apiUrl + movieOrtv + "?api_key=" + this.store.apiKey + "&query=" + this.store.searchString + "&language=it-IT";
       axios.get(indirizzo).then(risultato => {
-
         // rimuovere if se possibile mettere una variabile passata dalla funzione
-
         if (movieOrtv == 'movie') {
           this.store.movie = risultato.data.results;
         }

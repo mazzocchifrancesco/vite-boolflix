@@ -5,23 +5,16 @@ export default {
     name: "appCard",
     props: {
         info: Object,
+        title: String
     },
     data() {
         return {
             store,
+            x: 5,
         }
     },
     methods: {
         getImageUrl(img) {
-
-            // lang fix
-            if (img == 'en') { img = 'gb' };
-            if (img == 'ja') { img = 'jp' };
-            if (img == 'nb') { img = 'no' };
-            if (img == 'da') { img = 'dk' };
-            if (img == 'zh') { img = 'cn' };
-            if (img == 'te') { img = 'in' };
-
             return new URL(`../../node_modules/svg-country-flags/svg/${img}.svg`, import.meta.url).href
         }
     }
@@ -30,13 +23,19 @@ export default {
 </script>
 
 <template>
-    <div id="card" class=" d-flex flex-column flex-wrap bg-white">
-        <h4> {{ info.title }}{{ info.name }}</h4>
-        <p> {{ info.original_title }}{{ info.original_name }}</p>
-        <p> {{ info.original_language }}</p>
-
-        <img :src="getImageUrl(info.original_language)" alt=aaaaa>
-        <p>{{ info.vote_average }}</p>
+    <div class="container">
+        <h2 v-show="store.movie != ''" class="text-uppercase">{{ title }}</h2>
+        <div class="row">
+            <!-- card che cicla -->
+            <div id="card" v-for="element in info " class=" d-flex flex-column flex-wrap bg-white">
+                <h4> {{ element.title }}{{ element.name }}</h4>
+                <p> {{ element.original_title }}{{ element.original_name }}</p>
+                <p> {{ element.original_language }}</p>
+                <!-- immagine bandierina -->
+                <img :src="getImageUrl(element.original_language)" alt="">
+                <p>{{ element.vote_average }}</p>
+            </div>
+        </div>
     </div>
 </template>
 <style scooped>

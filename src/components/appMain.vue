@@ -20,21 +20,11 @@ export default {
 
 <template>
     <div id="main">
-
-        <!-- spostare container in card? -->
-        <div class="container">
-            <h2>FILM</h2>
-            <div class="row">
-                <appCard v-for="element in store.movie " :info="element" />
-            </div>
-        </div>
+        <!-- film -->
+        <appCard :info="store.movie" :title="'film'" />
         <!-- serie tv -->
-        <div class="container">
-            <h2>SERIE</h2>
-            <div class="row">
-                <appCard v-for="element in store.tv " :info="element" />
-            </div>
-        </div>
+        <appCard :info="store.tv" :title="'serie tv'" />
+
     </div>
 </template>
 
