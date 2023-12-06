@@ -39,6 +39,7 @@ export default {
       // trasformata in arrow function per permettere passaggio dei dati
       axios.request(options).then((response) => {
 
+        // cambia array a seconda del tipo di contenuto richiesto 
         if (movieOrtv == 'movie') {
           this.store.movie = response.data.results;
         }

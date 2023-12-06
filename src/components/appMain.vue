@@ -19,10 +19,11 @@ export default {
 
 <template>
     <div id="main" class="overflow-auto">
+        <!-- i valori di movieOrShow devo essere quelli dalla docs dell'API -->
         <!-- film -->
-        <appCard :info="store.movie" :title="'film'" />
+        <appCard :info="store.movie" :movieOrShow="'movie'" :title="'film'" />
         <!-- serie tv -->
-        <appCard :info="store.tv" :title="'serie tv'" />
+        <appCard :info="store.tv" :movieOrShow="'tv'" :title="'serie tv'" />
     </div>
 </template>
 

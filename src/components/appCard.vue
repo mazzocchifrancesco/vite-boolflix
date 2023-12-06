@@ -1,16 +1,20 @@
 <script>
 import { store } from "../store.js"
+import axios from 'axios';
+
 
 export default {
     name: "appCard",
     props: {
         info: Array,
+        movieOrShow: String,
         title: String
     },
     data() {
         return {
             store,
             over: null,
+            arrayActors: []
         }
     },
     methods: {
@@ -31,6 +35,44 @@ export default {
                 return text;
             }
             return text.substr(0, length) + '\u2026'
+        },
+
+        // repcupera gli attori 
+
+        getActors(movieOrtv, idMovie, nActors, posizione) {
+            const options = {
+                method: 'GET',
+                url: `https://api.themoviedb.org/3/${movieOrtv}/${idMovie}/credits`,
+                params: {
+                    language: store.lingua,
+                    api_key: store.apiKey
+                },
+                headers: {
+                    accept: 'application/json',
+                }
+            };
+            axios.request(options).then((response) => {
+
+                // creo variabile d'appoggio
+                let arrayTemp = [];
+
+                // cambia array a seconda del tipo di contenuto richiesto 
+                if (movieOrtv == 'movie') {
+                    arrayTemp = response.data.cast;
+                }
+                else if (movieOrtv == 'tv') {
+                    arrayTemp = response.data.cast;
+                };
+
+                // restituisce solo i primi N elementi e cancella gli altri 
+                arrayTemp = arrayTemp.splice(-nActors);
+
+                // pusho l'array nell'array in data() 
+                this.arrayActors.splice(posizione, 1, arrayTemp);
+
+                console.log(arrayTemp);
+
+            }).catch((error) => { console.error(error); });
         }
     },
     mounted() {
@@ -44,26 +86,30 @@ export default {
     <!-- container riga -->
     <div class="container">
         <!-- titolo con v-for appare quando c'è contenuto nella ricerca -->
-        <h2 v-show="store.movie != ''" class="text-uppercase text-white fw-bolder mb-4">{{ title }}</h2>
+        <h2 v-show="store.movie != ''" class="text-uppercase text-white fw-bolder mb-4">{{ this.title }}</h2>
 
         <!-- riga elementi -->
         <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar">
 
-            <!-- card che cicla // mouseover rivela il testo-->
+            <!-- CARD che cicla // mouseover rivela il testo-->
             <div id="card" v-for="(element, index) in info" @mouseover="this.over = index" @mouseleave="this.over = null"
                 class="d-flex flex-column flex-wrap position-relative">
 
                 <!-- card contenuto -->
                 <div id="content" class="d-flex flex-column overflow-auto hideScrollBar text-white">
+
                     <!-- titolo -->
                     <p><strong>Titolo:</strong> {{ element.title }}{{ element.name }}</p>
+
                     <!-- titolo originale -->
                     <p><strong>Titolo originale:</strong> {{ element.original_title }}{{ element.original_name }}</p>
+
                     <!-- immagine bandierina -->
                     <div class="d-flex align-items-baseline">
                         <p class="me-2"><strong>Lingua:</strong></p>
                         <img id="flag" :src="getImageFlag(element.original_language)" alt="">
                     </div>
+
                     <!-- stelle voto -->
                     <div id="stelle" class="d-flex align-items-baseline">
                         <p class="fw-bold me-2">Voto:</p>
@@ -73,20 +119,34 @@ export default {
                         <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 3" />
                         <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 4" />
                     </div>
+
+                    <!-- attori  ---------------------------------------->
+                    <div>
+                        <p @click="getActors(movieOrShow, element.id, 5, index)">attori</p>
+                        <span v-for="attore in this.arrayActors[index]">{{ attore.original_name }}</span>
+                    </div>
                     <!-- decrizione che si tronca dopo un tot -->
                     <p>{{ truncateText(element.overview, 200) }}</p>
                 </div>
-                <!-- copertina a scomparsa -->
+
+                <!-- copertina a scomparsa ------------------------------------------------------------------>
                 <div id="poster" :class="(this.over == index) ? 'cardActive' : 'cardInactive'"
                     class="position-absolute top-0 start-0 h-100 w-100">
+
                     <!-- immagine poster -->
                     <img v-if="element.poster_path != null" :src="getImagePoster(element.poster_path)" alt=""
                         class="h-100 w-100">
+
+                    <!-- poster fittizio se manca in database ------------------------------------------------------------->
                     <div class="px-3 bg-black text-white d-flex flex-column align-items-center justify-content-center h-100 w-100 position-absolute top-0 start-0"
                         v-if="element.poster_path == null">
                         <p class="fw-bold text-center">{{ element.title }}{{ element.name }}</p>
                         <p>POSTER MANCANTE</p>
                         <font-awesome-icon icon="face-frown" size="lg" />
+                    </div>
+
+                    <!-- actors card  ------------------------------------------------------------------------------------------->
+                    <div>
 
                     </div>
                 </div>
@@ -96,11 +156,11 @@ export default {
 </template>
 <style scooped>
 #card {
-    margin-right: calc(10% / 3);
     margin-bottom: 1rem;
     height: 30rem;
     width: 21rem;
     background-color: black;
+    z-index: 1;
 }
 
 #content {
