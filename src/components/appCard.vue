@@ -2,11 +2,14 @@
 import { store } from "../store.js"
 import axios from 'axios';
 
+import axios from 'axios';
+
 
 export default {
     name: "appCard",
     props: {
         info: Array,
+        movieOrShow: String,
         movieOrShow: String,
         title: String
     },
@@ -17,6 +20,8 @@ export default {
         }
     },
     methods: {
+
+        // recupera immaigni bandiera
 
         // recupera immaigni bandiera
         getImageFlag(img) {
@@ -68,12 +73,14 @@ export default {
     },
     mounted() {
 
+
     }
 }
 
 </script>
 
 <template>
+    <!-- container riga -->
     <!-- container riga -->
     <div class="container">
         <!-- titolo con v-for appare quando c'è contenuto nella ricerca -->
@@ -105,7 +112,8 @@ export default {
                     <div id="stelle" class="d-flex align-items-baseline">
                         <p class="fw-bold me-2">Voto:</p>
                         <font-awesome-icon icon="fa-solid fa-star" v-for="n in Math.ceil(element.vote_average / 2)" />
-                        <font-awesome-icon icon="fa-regular fa-star" v-for="n in (5 - Math.ceil(element.vote_average / 2))" />
+                        <font-awesome-icon icon="fa-regular fa-star"
+                            v-for="n in (5 - Math.ceil(element.vote_average / 2))" />
                     </div>
                     <!-- attori  ---------------------------------------->
                     <div class="d-flex mb-2">
