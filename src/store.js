@@ -8,7 +8,11 @@ export const store = reactive({
     searchString: "",
     lingua: 'it-IT',
     movie: [],
-    tv: []
+    tv: [],
+
+    // proseguo di accrocchio scroll 
+    scroll1: false,
+    scroll2: false
 })
 
 

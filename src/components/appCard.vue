@@ -14,25 +14,24 @@ export default {
         }
     },
     methods: {
+
+        // recupera immaigni bandiera
         getImageFlag(img) {
             return new URL(`../../node_modules/svg-country-flags/svg/${img}.svg`, import.meta.url).href
         },
+
+        // recupera immaigni poster
         getImagePoster(img) {
             return new URL(store.posterUrl + store.posterSize + img, import.meta.url).href
         },
 
-        // scroll orizontale 
-        scroll(id) {
-            const scrollContainer = document.getElementsById(id);
-
-            scrollContainer.addEventListener("wheel", (evt) => {
-                evt.preventDefault();
-                scrollContainer.scrollBy({
-                    left: evt.deltaY < 0 ? -30 : 30,
-                });
-            });
+        // tronca testo e aggiunge puntini dopo N caratteri 
+        truncateText(text, length) {
+            if (text.length <= length) {
+                return text;
+            }
+            return text.substr(0, length) + '\u2026'
         }
-
     },
     mounted() {
 
@@ -42,18 +41,20 @@ export default {
 </script>
 
 <template>
+    <!-- container riga -->
     <div class="container">
+        <!-- titolo con v-for appare quando c'è contenuto nella ricerca -->
         <h2 v-show="store.movie != ''" class="text-uppercase text-white fw-bolder mb-4">{{ title }}</h2>
 
         <!-- riga elementi -->
-        <div id="row" class="row overflow-x-auto flex-nowrap @wheel=">
+        <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar">
 
-            <!-- card che cicla -->
+            <!-- card che cicla // mouseover rivela il testo-->
             <div id="card" v-for="(element, index) in info" @mouseover="this.over = index" @mouseleave="this.over = null"
                 class="d-flex flex-column flex-wrap position-relative">
 
                 <!-- card contenuto -->
-                <div id="content" class="d-flex flex-column overflow-auto">
+                <div id="content" class="d-flex flex-column overflow-auto hideScrollBar text-white">
                     <!-- titolo -->
                     <p><strong>Titolo:</strong> {{ element.title }}{{ element.name }}</p>
                     <!-- titolo originale -->
@@ -72,14 +73,22 @@ export default {
                         <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 3" />
                         <font-awesome-icon icon="fa-solid fa-star" v-if="(element.vote_average / 2) > 4" />
                     </div>
-                    <!-- decrizione -->
-                    <p>{{ element.overview }}</p>
+                    <!-- decrizione che si tronca dopo un tot -->
+                    <p>{{ truncateText(element.overview, 200) }}</p>
                 </div>
                 <!-- copertina a scomparsa -->
-                <div id="poster" v-if="this.over != index" class="position-absolute top-0 start-0 h-100 w-100">
+                <div id="poster" :class="(this.over == index) ? 'cardActive' : 'cardInactive'"
+                    class="position-absolute top-0 start-0 h-100 w-100">
                     <!-- immagine poster -->
                     <img v-if="element.poster_path != null" :src="getImagePoster(element.poster_path)" alt=""
                         class="h-100 w-100">
+                    <div class="px-3 bg-black text-white d-flex flex-column align-items-center justify-content-center h-100 w-100 position-absolute top-0 start-0"
+                        v-if="element.poster_path == null">
+                        <p class="fw-bold text-center">{{ element.title }}{{ element.name }}</p>
+                        <p>POSTER MANCANTE</p>
+                        <font-awesome-icon icon="face-frown" size="lg" />
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,12 +100,23 @@ export default {
     margin-bottom: 1rem;
     height: 30rem;
     width: 21rem;
-    background-color: lightgrey;
+    background-color: black;
 }
 
 #content {
     padding: 3rem 2rem;
-    /* Hiding scrollbar for IE, Edge and Firefox */
+}
+
+.cardActive {
+    z-index: -1;
+    opacity: 0.2;
+}
+
+.cardInactive {
+    z-index: 3;
+}
+
+.hideScrollBar {
     scrollbar-width: none;
     /* Firefox */
     -ms-overflow-style: none;
@@ -104,9 +124,11 @@ export default {
 }
 
 /* Hiding scrollbar for Chrome, Safari and Opera */
-#content::-webkit-scrollbar {
+.hideScrollBar::-webkit-scrollbar {
     display: none;
 }
+
+
 
 #poster>img {
     aspect-ratio: auto;
