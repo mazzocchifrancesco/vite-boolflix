@@ -23,12 +23,12 @@ export default {
         <!-- logo -->
         <h1 class="fw-bolder text-white">Boolflix</h1>
         <!-- searchbar -->
-        <form class="d-flex align-items-center" role="search">
+        <div class="d-flex align-items-center" role="search">
             <!-- i due elementi che servono l'emit devono stare nello stesso contenitore, altrimenti dichiaro nell'export gli emit  -->
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
                 v-model="this.store.searchString">
             <button @click="search" class="btn btn-secondary" type="submit">Search</button>
-        </form>
+        </div>
     </nav>
 </template>
 

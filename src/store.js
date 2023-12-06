@@ -9,6 +9,8 @@ export const store = reactive({
     lingua: 'it-IT',
     movie: [],
     tv: [],
+    arrayActorsMovie: [],
+    arrayActorsTv: [],
 
     // proseguo di accrocchio scroll 
     scroll1: false,
