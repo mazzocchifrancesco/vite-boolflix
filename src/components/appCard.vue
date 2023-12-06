@@ -2,14 +2,12 @@
 import { store } from "../store.js"
 import axios from 'axios';
 
-import axios from 'axios';
 
 
 export default {
     name: "appCard",
     props: {
         info: Array,
-        movieOrShow: String,
         movieOrShow: String,
         title: String
     },
@@ -20,8 +18,6 @@ export default {
         }
     },
     methods: {
-
-        // recupera immaigni bandiera
 
         // recupera immaigni bandiera
         getImageFlag(img) {
@@ -81,7 +77,6 @@ export default {
 
 <template>
     <!-- container riga -->
-    <!-- container riga -->
     <div class="container">
         <!-- titolo con v-for appare quando c'è contenuto nella ricerca -->
         <h2 v-show="store.movie != ''" class="text-uppercase text-white fw-bolder mb-4">{{ this.title }}</h2>
@@ -125,6 +120,7 @@ export default {
                             </div>
                         </div>
                         <div class="d-flex flex-column">
+
                             <!-- genero due elenchi e mostro solo quello corretto, DA FIXARE/OTTIMIZZARE -->
                             <span v-if="this.movieOrShow == 'movie'" v-for="attore in this.store.arrayActorsMovie[index]">{{
                                 attore.original_name }}</span>
