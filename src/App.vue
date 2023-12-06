@@ -39,6 +39,7 @@ export default {
       // trasformata in arrow function per permettere passaggio dei dati
       axios.request(options).then((response) => {
 
+        // cambia array a seconda del tipo di contenuto richiesto 
         if (movieOrtv == 'movie') {
           this.store.movie = response.data.results;
         }
@@ -49,13 +50,39 @@ export default {
 
         // potrei togliere le tonde visto che ha un elemento solo nelle tonde
       }).catch((error) => { console.error(error); });
-    }
+    },
+
+    // scroll orizontale, accrocchio terribile, bisogna specificare il numero di ROW MANUALMENTE!
+    scroll(classe) {
+
+      const scrollContainer = document.getElementsByClassName(classe)[0];
+      const scrollContainer2 = document.getElementsByClassName(classe)[1];
+      if (this.store.scroll1 == false) {
+        this.store.scroll1 = true;
+        scrollContainer.addEventListener("wheel", (evt) => {
+          evt.preventDefault();
+          scrollContainer.scrollBy({
+            left: evt.deltaY * -0.5,
+          });
+        });
+      }
+      if (this.store.scroll2 == false) {
+        this.store.scroll2 = true;
+        scrollContainer2.addEventListener("wheel", (evt) => {
+          evt.preventDefault();
+          scrollContainer2.scrollBy({
+            left: evt.deltaY * -0.5,
+          });
+        });
+      }
+    },
+
   }
 }
 </script>
 
 <template>
-  <appHeader @search="getMovie('movie'), getMovie('tv')" />
+  <appHeader @search="getMovie('movie'), getMovie('tv'), scroll('row')" />
   <appMain />
 </template>
 
