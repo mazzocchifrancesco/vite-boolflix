@@ -60,23 +60,20 @@ export default {
                     // creo attore fantasma con messaggio e pusho nell'array attori
                     if (arrayTemp.length == 0) {
                         arrayTemp.push({ original_name: "Informazioni attori mancanti" })
-                        console.log(arrayTemp)
                     }
                     // pusha nella posizione indice l'array in store
 
-                    this.store.arrayActorsMovie.splice(posizione, 1, arrayTemp)
+                    this.store.arrayActorsMovie[posizione] = arrayTemp;
 
                 }
                 else if (movieOrtv == 'tv') {
                     arrayTemp = response.data.cast;
                     arrayTemp = arrayTemp.splice(-nActors);
-                    store.arrayActorsTv.length = store.tv.length;
 
                     if (arrayTemp.length == 0) {
                         arrayTemp.push({ original_name: "Informazioni attori mancanti" })
-                        console.log(arrayTemp)
                     }
-                    store.arrayActorsTv.splice(posizione, 1, arrayTemp)
+                    this.store.arrayActorsTv[posizione] = arrayTemp;
                 };
                 // controllo in console 
                 console.log(posizione);
@@ -99,7 +96,7 @@ export default {
         <h2 v-show="store.movie != ''" class="text-uppercase text-white fw-bolder mb-4">{{ this.title }}</h2>
 
         <!-- riga elementi -->
-        <div id="row" class="row overflow-auto flex-nowrap">
+        <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar">
 
             <!-- CARD che cicla // mouseover rivela il testo-->
             <div id="card" v-for="(element, index) in info" @mouseover="this.over = index" @mouseleave="this.over = null"

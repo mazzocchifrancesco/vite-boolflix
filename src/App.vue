@@ -17,6 +17,7 @@ export default {
     }
   },
   mounted() {
+    this.getGenereList('movie')
   },
   methods: {
     // recupera film o serie con axios
@@ -51,7 +52,24 @@ export default {
         // potrei togliere le tonde visto che ha un elemento solo nelle tonde
       }).catch((error) => { console.error(error); });
     },
+    // recupero lista generi film 
+    getGenereList(movieOrtv) {
+      const options = {
+        method: 'GET',
+        url: `https://api.themoviedb.org/3/genre/${movieOrtv}/list`,
+        params: {
+          api_key: store.apiKey
+        },
+        headers: {
+          accept: 'application/json',
+        }
+      };
+      axios.request(options).then((response) => {
+        store.movieGenres = response.data.genres;
+        console.log(store.movieGenres);
+      }).catch((error) => { console.error(error); });
 
+    },
     // scroll orizontale, accrocchio terribile, bisogna specificare il numero di ROW MANUALMENTE!
     scroll(classe) {
 

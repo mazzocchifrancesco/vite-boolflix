@@ -19,6 +19,14 @@ export default {
 
 <template>
     <div id="main" class="overflow-auto">
+        <div class="text-white d-flex">
+            <p>Selezionati:</p>
+            <template v-for="(generi, index) in store.selectedGenres">
+                <p v-if="generi != undefined" class="mx-2">{{ generi.name
+                }}
+                </p>
+            </template>
+        </div>
         <!-- i valori di movieOrShow devo essere quelli dalla docs dell'API -->
         <!-- film -->
         <appCard :info="store.movie" :movieOrShow="'movie'" :title="'film'" />
