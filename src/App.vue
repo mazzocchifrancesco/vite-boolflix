@@ -82,7 +82,7 @@ export default {
 </script>
 
 <template>
-  <appHeader @search="getMovie('movie'), getMovie('tv'), scroll('row')" />
+  <appHeader @search="getMovie('movie'), getMovie('tv')" />
   <appMain />
 </template>
 

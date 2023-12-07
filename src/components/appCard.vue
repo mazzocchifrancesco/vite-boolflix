@@ -55,19 +55,32 @@ export default {
                     arrayTemp = response.data.cast;
                     // restituisce N elementi nell'array
                     arrayTemp = arrayTemp.splice(-nActors);
-                    // creo un array vuoto lungo un tot (da fixare) 
-                    this.store.arrayActorsMovie.length = 50;
+                    // creo un array vuoto lungo un come l'array dei film
+                    store.arrayActorsMovie.length = store.movie.length;
+                    // creo attore fantasma con messaggio e pusho nell'array attori
+                    if (arrayTemp.length == 0) {
+                        arrayTemp.push({ original_name: "Informazioni attori mancanti" })
+                        console.log(arrayTemp)
+                    }
                     // pusha nella posizione indice l'array in store
+
                     this.store.arrayActorsMovie.splice(posizione, 1, arrayTemp)
-                    console.log(posizione);
-                    console.log(idMovie);
+
                 }
                 else if (movieOrtv == 'tv') {
                     arrayTemp = response.data.cast;
                     arrayTemp = arrayTemp.splice(-nActors);
-                    this.store.arrayActorsTv.splice(posizione, 1, arrayTemp)
-                };
+                    store.arrayActorsTv.length = store.tv.length;
 
+                    if (arrayTemp.length == 0) {
+                        arrayTemp.push({ original_name: "Informazioni attori mancanti" })
+                        console.log(arrayTemp)
+                    }
+                    store.arrayActorsTv.splice(posizione, 1, arrayTemp)
+                };
+                // controllo in console 
+                console.log(posizione);
+                console.log(idMovie);
             }).catch((error) => { console.error(error); });
         },
     },
@@ -86,14 +99,14 @@ export default {
         <h2 v-show="store.movie != ''" class="text-uppercase text-white fw-bolder mb-4">{{ this.title }}</h2>
 
         <!-- riga elementi -->
-        <div id="row" class="row overflow-auto flex-nowrap hideScrollBar">
+        <div id="row" class="row overflow-auto flex-nowrap">
 
             <!-- CARD che cicla // mouseover rivela il testo-->
             <div id="card" v-for="(element, index) in info" @mouseover="this.over = index" @mouseleave="this.over = null"
                 class="d-flex flex-column flex-wrap position-relative">
 
                 <!-- card contenuto -->
-                <div id="content" class="d-flex flex-column overflow-auto text-white">
+                <div id="content" class="d-flex flex-column overflow-auto text-white hideScrollBar">
 
                     <!-- titolo -->
                     <p><strong>Titolo:</strong> {{ element.title }}{{ element.name }}</p>
@@ -123,7 +136,6 @@ export default {
                             <div @click="getActors(movieOrShow, element.id, 5, index)" class="fw-light click">(show)
                             </div>
                         </div>
-
                         <div class="d-flex flex-column">
                             <!-- genero due elenchi e mostro solo quello corretto, DA FIXARE/OTTIMIZZARE -->
                             <span v-if="this.movieOrShow == 'movie'" v-for="attore in this.store.arrayActorsMovie[index]">{{
@@ -196,12 +208,9 @@ export default {
     display: none;
 }
 
-
-
 #poster>img {
     aspect-ratio: auto;
     object-fit: cover;
-
 }
 
 #flag {
