@@ -55,8 +55,12 @@ export default {
                     arrayTemp = response.data.cast;
                     // restituisce N elementi nell'array
                     arrayTemp = arrayTemp.splice(-nActors);
+                    // creo un array vuoto lungo un tot (da fixare) 
+                    this.store.arrayActorsMovie.length = 50;
                     // pusha nella posizione indice l'array in store
                     this.store.arrayActorsMovie.splice(posizione, 1, arrayTemp)
+                    console.log(posizione);
+                    console.log(idMovie);
                 }
                 else if (movieOrtv == 'tv') {
                     arrayTemp = response.data.cast;
@@ -119,8 +123,8 @@ export default {
                             <div @click="getActors(movieOrShow, element.id, 5, index)" class="fw-light click">(show)
                             </div>
                         </div>
-                        <div class="d-flex flex-column">
 
+                        <div class="d-flex flex-column">
                             <!-- genero due elenchi e mostro solo quello corretto, DA FIXARE/OTTIMIZZARE -->
                             <span v-if="this.movieOrShow == 'movie'" v-for="attore in this.store.arrayActorsMovie[index]">{{
                                 attore.original_name }}</span>
