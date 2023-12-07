@@ -21,8 +21,8 @@ export default {
     <div id="main" class="overflow-auto">
         <div class="text-white d-flex">
             <p>Selezionati:</p>
-            <template v-for="(generi, index) in store.selectedGenres">
-                <p v-if="generi != undefined" class="mx-2">{{ generi.name
+            <template v-for="(id, index) in store.selectedGenres">
+                <p v-if="id != undefined" class="mx-2">{{ id.name
                 }}
                 </p>
             </template>

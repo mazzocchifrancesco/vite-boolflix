@@ -14,6 +14,7 @@ export const store = reactive({
     arrayActorsTv: [],
     movieGenres: [],
     selectedGenres: [],
+    selectedGenresIds: [],
 
     // proseguo di accrocchio scroll 
     scroll1: false,
