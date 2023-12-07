@@ -17,9 +17,9 @@ export default {
         selectGenres(genere, indice) {
             // controllo se in quella posizione è già presente l'oggetto con quel genere
             if (store.selectedGenres[indice] == genere) {
-                // lo sostituisco con valore non definito 
-                store.selectedGenres[indice] = undefined;
-                store.selectedGenresIds[indice] = null;
+                // lo sostituisco con valore non "rimosso"" 
+                store.selectedGenres[indice] = 'rimosso';
+                store.selectedGenresIds[indice] = 'rimosso';
             }
             else {
                 // assegno l'oggetto a quella posizione
@@ -27,6 +27,10 @@ export default {
                 store.selectedGenresIds[indice] = genere.id;
 
             }
+            store.allGenres = false;
+        },
+        allGenresBtn() {
+            store.allGenres = false;
         }
     }
 }
@@ -37,11 +41,22 @@ export default {
         <!-- logo -->
         <h1 class="fw-bolder text-white">Boolflix</h1>
 
-        <!-- genres bar -->
-        <div id="buttonContainer" class="d-flex flex-wrap gap-1 p-3">
-            <!-- genero l'elenco dei bottoni  -->
-            <button @click="selectGenres(genere, index)" class="btn btn-secondary p-1"
-                v-for="(genere, index) in store.movieGenres"> {{ genere.name }}</button>
+        <!-- dropdown generi -->
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Seleziona i generi
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" @click="selectGenres(genere, index)"
+                        v-for="(genere, index) in store.movieGenres">{{ genere.name }}</a></li>
+            </ul>
+        </div>
+
+
+        <!-- bottone tutti i generi già cliccato -->
+        <div>
+            <input type="checkbox" class="btn-check" id="btn-check" checked autocomplete="off">
+            <label @click="allGenresBtn()" class="btn btn-primary" for="btn-check">Tutti i generi</label>
         </div>
         <!-- searchbar -->
         <div class="d-flex align-items-center" role="search">

@@ -8,14 +8,18 @@ export const store = reactive({
     posterSize: 'w342',
     searchString: "",
     lingua: 'it-IT',
+    // array film 
     movie: [],
     tv: [],
+    // gestione attori 
     arrayActorsMovie: [],
     arrayActorsTv: [],
+    // gestione selezione generi 
     movieGenres: [],
+    movieGenresIds: [],
     selectedGenres: [],
     selectedGenresIds: [],
-
+    allGenres: true,
     // proseguo di accrocchio scroll 
     scroll1: false,
     scroll2: false

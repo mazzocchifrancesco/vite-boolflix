@@ -66,6 +66,7 @@ export default {
       };
       axios.request(options).then((response) => {
         store.movieGenres = response.data.genres;
+        store.movieGenresIds = response.data.genres.id;
         console.log(store.movieGenres);
       }).catch((error) => { console.error(error); });
 
@@ -94,13 +95,16 @@ export default {
         });
       }
     },
+    clearArray(array) {
+      array.lenth = 0;
+    }
 
   }
 }
 </script>
 
 <template>
-  <appHeader @search="getMovie('movie'), getMovie('tv')" />
+  <appHeader @search="getMovie('movie'), getMovie('tv'), clearArray(store.selectedGenresIds)" />
   <appMain />
 </template>
 

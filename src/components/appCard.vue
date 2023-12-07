@@ -100,8 +100,11 @@ export default {
 
             <!-- CARD che cicla // mouseover rivela il testo-->
             <template v-for="(element, index) in info">
-                <div id="card" v-if="store.selectedGenresIds.includes(element.genre_ids[0])" @mouseover="this.over = index"
-                    @mouseleave="this.over = null" class="d-flex flex-column flex-wrap position-relative">
+                <!-- restituisce il risultato se qualche genere dell'elemento è contenuto nell'array dei selected -->
+                <div id="card"
+                    v-if="store.selectedGenresIds.some(r => element.genre_ids.includes(r)) || store.allGenres == true"
+                    @mouseover="this.over = index" @mouseleave="this.over = null"
+                    class="d-flex flex-column flex-wrap position-relative">
 
                     <!-- card contenuto -->
                     <div id="content" class="d-flex flex-column overflow-auto text-white hideScrollBar">

@@ -22,7 +22,7 @@ export default {
         <div class="text-white d-flex">
             <p>Selezionati:</p>
             <template v-for="(id, index) in store.selectedGenres">
-                <p v-if="id != undefined" class="mx-2">{{ id.name
+                <p v-if="id != null" class="mx-2">{{ id.name
                 }}
                 </p>
             </template>
