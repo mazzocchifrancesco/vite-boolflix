@@ -80,9 +80,16 @@ export default {
                 console.log(idMovie);
             }).catch((error) => { console.error(error); });
         },
+        //TODO: aggiungere scroll alla pressione continua 
+        slideRight() {
+            document.getElementById('row').scrollLeft += 200;
+        },
+        slideLeft() {
+            document.getElementById('row').scrollLeft -= 200;
+        }
+
     },
     mounted() {
-
 
     }
 }
@@ -91,12 +98,21 @@ export default {
 
 <template>
     <!-- container riga -->
-    <div class="container">
+    <div class="container position-relative">
         <!-- titolo con v-for appare quando c'è contenuto nella ricerca -->
         <h2 v-show="store.movie != ''" class="text-uppercase textRed fw-bolder mb-4">{{ this.title }}</h2>
 
         <!-- riga elementi -->
-        <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar">
+
+        <!-- pulsanti slider orizontal bar  -->
+        <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar gap-3">
+            <div id="slideLeft" @click="slideLeft()" class=" slider position-absolute top-50 start-0 translate-middle">
+                <font-awesome-icon icon="chevron-left" size="xl" />
+            </div>
+            <div id="slideRight" @click="slideRight()"
+                class=" slider position-absolute top-50 start-100 translate-middle">
+                <font-awesome-icon icon="chevron-right" size="xl" />
+            </div>
 
             <!-- CARD che cicla // mouseover rivela il testo-->
             <template v-for="(element, index) in info">
@@ -113,13 +129,15 @@ export default {
                         <p><strong>Titolo:</strong> {{ element.title }}{{ element.name }}</p>
 
                         <!-- titolo originale -->
-                        <p><strong>Titolo originale:</strong> {{ element.original_title }}{{ element.original_name }}
+                        <p><strong>Titolo originale:</strong> {{ element.original_title }}{{
+            element.original_name }}
                         </p>
                         <!-- ciclo tutta la lista dei generi e stampo solo quelli presenti nell'array dei generi del film -->
                         <div class="mb-3">
 
                             <span class="badge text-bg-secondary ms-1" v-for="genere in store.movieGenres">
-                                <span v-if="element.genre_ids.includes(genere.id)">{{ genere.name }}</span></span>
+                                <span v-if="element.genre_ids.includes(genere.id)">{{ genere.name
+                                    }}</span></span>
                         </div>
                         <!-- immagine bandierina -->
                         <div class="d-flex align-items-baseline">
@@ -156,7 +174,8 @@ export default {
 
                         </div>
                         <!-- decrizione che si tronca dopo un tot -->
-                        <div><span class="fw-bold me-2">Trama:</span>{{ truncateText(element.overview, 200) }}</div>
+                        <div><span class="fw-bold me-2">Trama:</span>{{ truncateText(element.overview, 200) }}
+                        </div>
                     </div>
 
                     <!-- copertina a scomparsa ------------------------------------------------------------------>
@@ -181,7 +200,26 @@ export default {
         </div>
     </div>
 </template>
+
 <style scooped>
+/*   */
+/**
+bottone slider
+
+*TODO: aggiungere effetto al click
+**/
+.slider {
+    width: 3rem;
+    z-index: 99999;
+    color: #d13b49;
+    border-radius: 50%;
+    background-color: black;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #card {
     margin-bottom: 1rem;
     height: 30rem;
