@@ -113,8 +113,14 @@ export default {
                         <p><strong>Titolo:</strong> {{ element.title }}{{ element.name }}</p>
 
                         <!-- titolo originale -->
-                        <p><strong>Titolo originale:</strong> {{ element.original_title }}{{ element.original_name }}</p>
-                        <p>{{ element.genre_ids }}</p>
+                        <p><strong>Titolo originale:</strong> {{ element.original_title }}{{ element.original_name }}
+                        </p>
+                        <!-- ciclo tutta la lista dei generi e stampo solo quelli presenti nell'array dei generi del film -->
+                        <div class="mb-3">
+
+                            <span class="badge text-bg-secondary" v-for="genere in store.movieGenres">
+                                <span v-if="element.genre_ids.includes(genere.id)">{{ genere.name }}</span></span>
+                        </div>
                         <!-- immagine bandierina -->
                         <div class="d-flex align-items-baseline">
                             <p class="me-2"><strong>Lingua:</strong></p>
@@ -124,7 +130,8 @@ export default {
                         <!-- stelle voto -->
                         <div id="stelle" class="d-flex align-items-baseline">
                             <p class="fw-bold me-2">Voto:</p>
-                            <font-awesome-icon icon="fa-solid fa-star" v-for="n in Math.ceil(element.vote_average / 2)" />
+                            <font-awesome-icon icon="fa-solid fa-star"
+                                v-for="n in Math.ceil(element.vote_average / 2)" />
                             <font-awesome-icon icon="fa-regular fa-star"
                                 v-for="n in (5 - Math.ceil(element.vote_average / 2))" />
                         </div>
@@ -141,9 +148,10 @@ export default {
                                 <!-- genero due elenchi e mostro solo quello corretto, DA FIXARE/OTTIMIZZARE -->
                                 <span v-if="this.movieOrShow == 'movie'"
                                     v-for="attore in this.store.arrayActorsMovie[index]">{{
-                                        attore.original_name }}</span>
-                                <span v-if="this.movieOrShow == 'tv'" v-for="attore in this.store.arrayActorsTv[index]">{{
-                                    attore.original_name }}</span>
+            attore.original_name }}</span>
+                                <span v-if="this.movieOrShow == 'tv'"
+                                    v-for="attore in this.store.arrayActorsTv[index]">{{
+            attore.original_name }}</span>
                             </div>
 
                         </div>
