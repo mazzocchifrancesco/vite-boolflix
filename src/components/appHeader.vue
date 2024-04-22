@@ -28,9 +28,18 @@ export default {
 
             }
             store.allGenres = false;
+            document.getElementById("btn-check").checked = false;
+
         },
         allGenresBtn() {
-            store.allGenres = false;
+            if (store.allGenres == true) {
+                store.allGenres = false;
+            } else {
+                store.allGenres = true
+                store.selectedGenres = [];
+                store.selectedGenresIds = [];
+                document.getElementById("btn-check").checked = false;
+            }
         }
     }
 }
@@ -40,15 +49,25 @@ export default {
     <nav class="bg-danger d-flex justify-content-between align-items-center px-5">
         <!-- logo -->
         <h1 class="fw-bolder text-white">Boolflix</h1>
-
+        <!-- searchbar -->
+        <div id="searchbar" class="d-flex align-items-center" role="search">
+            <!-- i due elementi che servono l'emit devono stare nello stesso contenitore, altrimenti dichiaro nell'export gli emit  -->
+            <input class="form-control me-2" type="search"
+                placeholder="Inserisci il titolo del Film o della Serie che stai cercando" aria-label="Search"
+                v-model="this.store.searchString">
+            <button @click="search" class="btn btn-secondary" type="submit">Cerca</button>
+        </div>
         <!-- dropdown generi -->
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 Seleziona i generi
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#" @click="selectGenres(genere, index)"
-                        v-for="(genere, index) in store.movieGenres">{{ genere.name }}</a></li>
+                <li><a class="dropdown-item" :class="store.selectedGenresIds.includes(genere.id) ? 'bg-secondary' : ''"
+                        href="#" @click="selectGenres(genere, index)" v-for="(genere, index) in store.movieGenres">{{
+                    genere.name
+                }}</a></li>
             </ul>
         </div>
 
@@ -56,20 +75,18 @@ export default {
         <!-- bottone tutti i generi già cliccato -->
         <div>
             <input type="checkbox" class="btn-check" id="btn-check" checked autocomplete="off">
-            <label @click="allGenresBtn()" class="btn btn-primary" for="btn-check">Tutti i generi</label>
+            <label @click="allGenresBtn()" class="btn btn-primary" for="btn-check">Mostra tutti i generi</label>
         </div>
-        <!-- searchbar -->
-        <div class="d-flex align-items-center" role="search">
-            <!-- i due elementi che servono l'emit devono stare nello stesso contenitore, altrimenti dichiaro nell'export gli emit  -->
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
-                v-model="this.store.searchString">
-            <button @click="search" class="btn btn-secondary" type="submit">Search</button>
-        </div>
+
     </nav>
 </template>
 
 <style scoped>
 nav {
     height: 5rem;
+}
+
+#searchbar {
+    width: 45rem;
 }
 </style>

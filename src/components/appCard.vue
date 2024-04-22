@@ -93,7 +93,7 @@ export default {
     <!-- container riga -->
     <div class="container">
         <!-- titolo con v-for appare quando c'è contenuto nella ricerca -->
-        <h2 v-show="store.movie != ''" class="text-uppercase text-white fw-bolder mb-4">{{ this.title }}</h2>
+        <h2 v-show="store.movie != ''" class="text-uppercase textRed fw-bolder mb-4">{{ this.title }}</h2>
 
         <!-- riga elementi -->
         <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar">
@@ -118,7 +118,7 @@ export default {
                         <!-- ciclo tutta la lista dei generi e stampo solo quelli presenti nell'array dei generi del film -->
                         <div class="mb-3">
 
-                            <span class="badge text-bg-secondary" v-for="genere in store.movieGenres">
+                            <span class="badge text-bg-secondary ms-1" v-for="genere in store.movieGenres">
                                 <span v-if="element.genre_ids.includes(genere.id)">{{ genere.name }}</span></span>
                         </div>
                         <!-- immagine bandierina -->
@@ -138,8 +138,8 @@ export default {
                         <!-- attori  ---------------------------------------->
                         <div class="d-flex mb-2">
                             <div>
-                                <div class="me-2 fw-bold">Attori:
-                                </div>
+                                <p class="me-2 fw-bold">Attori:</p>
+
                                 <!-- uso click per evitare il ripetersi a ogni "svelamento" della funzione, fixare magari con un array di controllo -->
                                 <div @click="getActors(movieOrShow, element.id, 5, index)" class="fw-light click">(show)
                                 </div>

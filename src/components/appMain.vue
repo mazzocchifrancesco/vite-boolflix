@@ -19,11 +19,10 @@ export default {
 
 <template>
     <div id="main" class="overflow-auto">
-        <div class="text-white d-flex">
-            <p>Selezionati:</p>
+        <div class="text-white d-flex justify-content-center">
             <template v-for="(id, index) in store.selectedGenres">
-                <p v-if="id != null" class="mx-2">{{ id.name
-                }}
+                <p v-if="id != null" class="mx-2 fs-5 badge text-bg-secondary">{{ id.name
+                    }}
                 </p>
             </template>
         </div>
