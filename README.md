@@ -9,7 +9,7 @@
 ## About The Project
 ![example_screenshot](src/assets/readme/example.png)
 
-This is a simply movie catalogue that use the API provided by themoviedb.org, built with:<img src="src/assets/readme/vuejs_logo_icon_169247.png" alt="vuejs" width="60"> , <img src="src/assets/readme/axios.svg" alt="axios" width="100"> , <img src="src/assets/readme/bootstrap-logo-vector.png" alt="bootstrap" width="90">
+This is a simply movie catalogue that use the API provided by themoviedb.org, built with: Vue.js <img src="src/assets/readme/vue.svg" alt="vuejs" width="20"> , <img src="src/assets/readme/axios.svg" alt="axios" width="90"> , Bootstrap <img src="src/assets/readme/bootstrap.png" alt="bootstrap" width="20">
 
 This catalogue currently allows you to:
 
