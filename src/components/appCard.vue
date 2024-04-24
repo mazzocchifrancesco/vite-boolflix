@@ -106,7 +106,7 @@ export default {
         <!-- riga elementi -->
 
         <!-- pulsanti slider orizontal bar  -->
-        <h2 v-if="" class="text-uppercase textRed fw-bolder mb-4">
+        <h2 class="text-uppercase textRed fw-bolder mb-4">
             {{ title }}</h2>
         <div @click="slideLeft(title)" class=" slider position-absolute top-50 start-0 translate-middle">
             <font-awesome-icon icon="chevron-left" size="xl" />
@@ -134,7 +134,7 @@ export default {
 
                         <!-- titolo originale -->
                         <p><strong>Titolo originale:</strong> {{ element.original_title }}{{
-            element.original_name }}
+                element.original_name }}
                         </p>
                         <!-- ciclo tutta la lista dei generi e stampo solo quelli presenti nell'array dei generi del film -->
                         <div class="mb-3">
@@ -170,10 +170,10 @@ export default {
                                 <!-- genero due elenchi e mostro solo quello corretto, DA FIXARE/OTTIMIZZARE -->
                                 <span v-if="this.movieOrShow == 'movie'"
                                     v-for="attore in this.store.arrayActorsMovie[index]">{{
-            attore.original_name }}</span>
+                attore.original_name }}</span>
                                 <span v-if="this.movieOrShow == 'tv'"
                                     v-for="attore in this.store.arrayActorsTv[index]">{{
-            attore.original_name }}</span>
+                attore.original_name }}</span>
                             </div>
 
                         </div>
