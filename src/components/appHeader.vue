@@ -52,10 +52,9 @@ export default {
         <!-- searchbar -->
         <div id="searchbar" class="d-flex align-items-center" role="search">
             <!-- i due elementi che servono l'emit devono stare nello stesso contenitore, altrimenti dichiaro nell'export gli emit  -->
-            <input class="form-control me-2" type="search"
-                placeholder="Inserisci il titolo del Film o della Serie che stai cercando" aria-label="Search"
+            <input @input="search" class="form-control me-2" type="search"
+                placeholder="Inserisci il titolo per avviare una ricerca" aria-label="Search"
                 v-model="this.store.searchString">
-            <button @click="search" class="btn btn-secondary" type="submit">Cerca</button>
         </div>
         <!-- dropdown generi -->
         <div class="dropdown">

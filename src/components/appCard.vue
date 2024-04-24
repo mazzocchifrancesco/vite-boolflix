@@ -10,6 +10,7 @@ export default {
         info: Array,
         movieOrShow: String,
         title: String
+
     },
     data() {
         return {
@@ -80,13 +81,7 @@ export default {
                 console.log(idMovie);
             }).catch((error) => { console.error(error); });
         },
-        //TODO: aggiungere scroll alla pressione continua 
-        slideRight() {
-            document.getElementById('row').scrollLeft += 200;
-        },
-        slideLeft() {
-            document.getElementById('row').scrollLeft -= 200;
-        }
+
 
     },
     mounted() {
@@ -99,20 +94,13 @@ export default {
 <template>
     <!-- container riga -->
     <div class="container position-relative">
-        <!-- titolo con v-for appare quando c'è contenuto nella ricerca -->
-        <h2 v-show="store.movie != ''" class="text-uppercase textRed fw-bolder mb-4">{{ this.title }}</h2>
+
 
         <!-- riga elementi -->
 
         <!-- pulsanti slider orizontal bar  -->
-        <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar gap-3">
-            <div id="slideLeft" @click="slideLeft()" class=" slider position-absolute top-50 start-0 translate-middle">
-                <font-awesome-icon icon="chevron-left" size="xl" />
-            </div>
-            <div id="slideRight" @click="slideRight()"
-                class=" slider position-absolute top-50 start-100 translate-middle">
-                <font-awesome-icon icon="chevron-right" size="xl" />
-            </div>
+        <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar gap-3" :type=title>
+
 
             <!-- CARD che cicla // mouseover rivela il testo-->
             <template v-for="(element, index) in info">
@@ -202,24 +190,6 @@ export default {
 </template>
 
 <style scooped>
-/*   */
-/**
-bottone slider
-
-*TODO: aggiungere effetto al click
-**/
-.slider {
-    width: 3rem;
-    z-index: 99999;
-    color: #d13b49;
-    border-radius: 50%;
-    background-color: black;
-    aspect-ratio: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 #card {
     margin-bottom: 1rem;
     height: 30rem;
