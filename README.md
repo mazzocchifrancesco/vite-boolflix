@@ -1,7 +1,32 @@
-# Vue 3 + Vite
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<h3 align="center">Boolflix</h3>
+<div align="center">
+<img src="src/assets/readme/logo.png" alt="Logo" width="80" height="80">
+<p>A movie catalogue</p>
+</div>
 
-## Recommended IDE Setup
+<!-- ABOUT THE PROJECT -->
+## About The Project
+![example_screenshot](src/assets/readme/example.png)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+This is a simply movie catalogue that use the API provided by themoviedb.org, built with:<img src="src/assets/readme/vuejs_logo_icon_169247.png" alt="vuejs" width="60"> , <img src="src/assets/readme/axios.svg" alt="axios" width="100"> , <img src="src/assets/readme/bootstrap-logo-vector.png" alt="bootstrap" width="90">
+
+This catalogue currently allows you to:
+
+* search for a movie or series by name
+* vread the details of a specific title
+* filter results by genre
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+### Installation
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/mazzocchifrancesco/vite-boolflix.git
+   ```
+2. Install NPM packages
+   ```sh
+   npm install
+   ```
