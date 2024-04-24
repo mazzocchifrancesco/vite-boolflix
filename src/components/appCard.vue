@@ -81,12 +81,19 @@ export default {
                 console.log(idMovie);
             }).catch((error) => { console.error(error); });
         },
-
-
+        //TODO: aggiungere scroll alla pressione continua 
+        slideRight(title) {
+            document.querySelectorAll('[type=' + title + ']')[0].scrollLeft += 200;
+        },
+        slideLeft(title) {
+            document.querySelectorAll('[type=' + title + ']')[0].scrollLeft -= 200;
+        },
     },
     mounted() {
 
-    }
+    },
+    updated() {
+    },
 }
 
 </script>
@@ -99,7 +106,16 @@ export default {
         <!-- riga elementi -->
 
         <!-- pulsanti slider orizontal bar  -->
-        <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar gap-3" :type=title>
+        <h2 v-if="" class="text-uppercase textRed fw-bolder mb-4">
+            {{ title }}</h2>
+        <div @click="slideLeft(title)" class=" slider position-absolute top-50 start-0 translate-middle">
+            <font-awesome-icon icon="chevron-left" size="xl" />
+        </div>
+        <div @click="slideRight(title)" class=" slider position-absolute top-50 start-100 translate-middle">
+            <font-awesome-icon icon="chevron-right" size="xl" />
+        </div>
+        <div id="row" class="row overflow-x-auto flex-nowrap hideScrollBar gap-3 position-relative" :type="title">
+
 
 
             <!-- CARD che cicla // mouseover rivela il testo-->
@@ -190,6 +206,24 @@ export default {
 </template>
 
 <style scooped>
+/*   */
+/**
+bottone slider
+
+*TODO: aggiungere effetto al click
+**/
+.slider {
+    width: 3rem;
+    z-index: 99999;
+    color: #d13b49;
+    border-radius: 50%;
+    background-color: black;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #card {
     margin-bottom: 1rem;
     height: 30rem;

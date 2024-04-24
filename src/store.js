@@ -21,8 +21,8 @@ export const store = reactive({
     selectedGenresIds: [],
     allGenres: true,
     // proseguo di accrocchio scroll 
-    scroll1: false,
-    scroll2: false
+    // scroll1: false,
+    // scroll2: false
 })
 
 

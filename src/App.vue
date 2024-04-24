@@ -42,12 +42,11 @@ export default {
 
         // cambia array a seconda del tipo di contenuto richiesto 
         if (movieOrtv == 'movie') {
-          this.store.movie = response.data.results;
+          this.store.movie = response.data.results
         }
         else if (movieOrtv == 'tv') {
           this.store.tv = response.data.results;
         };
-        console.log(response.data.results);
 
         // potrei togliere le tonde visto che ha un elemento solo nelle tonde
       }).catch((error) => { console.error(error); });
@@ -72,29 +71,29 @@ export default {
 
     },
     // scroll orizontale, accrocchio terribile, bisogna specificare il numero di ROW MANUALMENTE!
-    scroll(classe) {
+    // scroll(classe) {
 
-      const scrollContainer = document.getElementsByClassName(classe)[0];
-      const scrollContainer2 = document.getElementsByClassName(classe)[1];
-      if (this.store.scroll1 == false) {
-        this.store.scroll1 = true;
-        scrollContainer.addEventListener("wheel", (evt) => {
-          evt.preventDefault();
-          scrollContainer.scrollBy({
-            left: evt.deltaY * -0.5,
-          });
-        });
-      }
-      if (this.store.scroll2 == false) {
-        this.store.scroll2 = true;
-        scrollContainer2.addEventListener("wheel", (evt) => {
-          evt.preventDefault();
-          scrollContainer2.scrollBy({
-            left: evt.deltaY * -0.5,
-          });
-        });
-      }
-    },
+    //   const scrollContainer = document.getElementsByClassName(classe)[0];
+    //   const scrollContainer2 = document.getElementsByClassName(classe)[1];
+    //   if (this.store.scroll1 == false) {
+    //     this.store.scroll1 = true;
+    //     scrollContainer.addEventListener("wheel", (evt) => {
+    //       evt.preventDefault();
+    //       scrollContainer.scrollBy({
+    //         left: evt.deltaY * -0.5,
+    //       });
+    //     });
+    //   }
+    //   if (this.store.scroll2 == false) {
+    //     this.store.scroll2 = true;
+    //     scrollContainer2.addEventListener("wheel", (evt) => {
+    //       evt.preventDefault();
+    //       scrollContainer2.scrollBy({
+    //         left: evt.deltaY * -0.5,
+    //       });
+    //     });
+    //   }
+    // },
     clearArray(array) {
       array.lenth = 0;
     }
